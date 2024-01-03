@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Live Stream</title>
+
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+        background: transparent;
+        display: grid;
+        place-items: center;
+      }
+
+      .player-wrapper {
+        width: 100%;
+        max-width: 1080px;
+        position: relative;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+        background: black;
+      }
+
+      #fullscreen-button {
+        color: white;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
+      }
+      #exit-fullscreen-button {
+        color: white;
+        position: absolute;
+        display: none;
+        top: 5px;
+        left: 5px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
+      }
+
+    </style>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video-js.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+  </head>
+  <body>
+    
+
+    <div class="player-wrapper">
+      <button id="fullscreen-button">
+        <i class="material-icons">fullscreen</i>
+      </button>
+      <button id="exit-fullscreen-button">
+        <i class="material-icons">fullscreen_exit</i>
+      </button>
+      <video id="amazon-ivs-videojs" class="video-js  vjs-fluid vjs-big-play-centered vjs-waiting vjs-seeking" controls  playsinline>
+      </video>
+    </div>
+
+    <script>
+      var currentURL = window.location.href;
+      // var match = currentURL.match(/\/(\d+)$/);
+      var match = currentURL.match(/\/(\d+)\/?$/); // Updated regex to match the number after the last "/" with or without a trailing slash
+      let playbackUrl = "";
+
+
+
+
+
+      async function fetchDataFromAPI(apiUrl) {
+        try {
+          const response = await fetch(apiUrl);
+          if (response.status === 200) {
+            const data = await response.json();
+            playbackUrl = data.data;
+            initializePlayer();
+          } else {
+            throw new Error('Failed to fetch data from the API');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
+
+
+      function helloWorld(){
+        alert("hello world function called")
+      }
+
+      // function startVideo(passcode) {
+      //   if(passcode=="sigmaPaSSWORDbIGBOOSTER55213"){
+      //     var extractedNumber = match[1];
+      //   fetchDataFromAPI(`https://apiv2.bigbooster.in/get-video-url?id=${extractedNumber+"sigmaPaSSWORDbIGBOOSTER55213"}`);
+      //   }
+      // }
+
+      (function(_0x2287e0,_0x38739a){var _0x4254f7=_0x2e42,_0x15bd3e=_0x2287e0();while(!![]){try{var _0x13f99a=-parseInt(_0x4254f7(0x6b))/0x1*(-parseInt(_0x4254f7(0x71))/0x2)+-parseInt(_0x4254f7(0x75))/0x3+parseInt(_0x4254f7(0x6e))/0x4+parseInt(_0x4254f7(0x6f))/0x5*(-parseInt(_0x4254f7(0x76))/0x6)+-parseInt(_0x4254f7(0x73))/0x7*(-parseInt(_0x4254f7(0x74))/0x8)+parseInt(_0x4254f7(0x6d))/0x9*(parseInt(_0x4254f7(0x70))/0xa)+-parseInt(_0x4254f7(0x6a))/0xb;if(_0x13f99a===_0x38739a)break;else _0x15bd3e['push'](_0x15bd3e['shift']());}catch(_0x337936){_0x15bd3e['push'](_0x15bd3e['shift']());}}}(_0x223d,0x72f98));function _0x2e42(_0x595457,_0xb3f701){var _0x223d1d=_0x223d();return _0x2e42=function(_0x2e4281,_0x298fee){_0x2e4281=_0x2e4281-0x6a;var _0x5070e5=_0x223d1d[_0x2e4281];return _0x5070e5;},_0x2e42(_0x595457,_0xb3f701);}function startVideo(_0x80729a){var _0x51523f=_0x2e42;if(_0x80729a==_0x51523f(0x72)){var _0x52be20=match[0x1];fetchDataFromAPI(_0x51523f(0x6c)+(_0x52be20+_0x51523f(0x72)));}}function _0x223d(){var _0xc136b6=['1296690LuZjup','5202IFHvaP','2526062CDCxHn','10187EGjyyw','https://apiv2.bigbooster.in/get-video-url?id=','297EGIhHG','1159792pBmYCZ','1415TCVdht','15020qwgpEL','64NacUKt','sigmaPaSSWORDbIGBOOSTER55213','4988697lHjqGE','8niYjGI'];_0x223d=function(){return _0xc136b6;};return _0x223d();}
+
+      // if (match) {
+      //   // playbackUrl = "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8";
+      //   // initializePlayer();
+      // }
+      // else{
+      //   playbackUrl = "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8";
+      //   initializePlayer();
+      // }
+
+
+      function initializePlayer() {
+        // Set up IVS playback tech and quality plugin
+        registerIVSTech(videojs);
+        registerIVSQualityPlugin(videojs);
+
+        // Initialize video.js player
+        const videoJSPlayer = videojs("amazon-ivs-videojs", {
+          techOrder: ["AmazonIVS"],
+          controlBar: {
+            progressControl: true,
+            playToggle: {
+              replay: false,
+            },
+            fullscreenToggle: false,
+            pictureInPictureToggle: false,
+          },
+        });
+
+        // Use the player API once the player instance's ready callback is fired
+        const readyCallback = function () {
+          window.videoJSPlayer = videoJSPlayer;
+          const ivsPlayer = videoJSPlayer.getIVSPlayer();
+
+          const videoContainerEl = document.querySelector("#amazon-ivs-videojs");
+          
+
+          // videoContainerEl.addEventListener("click", () => {
+          //   if (videoJSPlayer.paused()) {
+          //     videoContainerEl.classList.remove("vjs-has-started");
+          //   } else {
+          //     videoContainerEl.classList.add("vjs-has-started");
+          //   }
+          // });
+
+            videoContainerEl.addEventListener("click", () => {
+            if (videoJSPlayer.paused()) {
+
+              videoContainerEl.classList.remove("vjs-has-started");
+
+              // Get all elements with the specified classes
+              var elements = document.querySelectorAll('.vjs-control-bar');
+
+              elements.forEach(function(element) {
+                element.style.display = 'flex';
+                element.style.visibility = 'visible';
+                element.style.opacity = '1';
+                element.style.transition = 'visibility 0.1s, opacity 0.1s';
+
+              });
+
+            } else {
+              videoContainerEl.classList.add("vjs-has-started");
+
+              var elements = document.querySelectorAll('.vjs-control-bar');
+             // Revert back to default
+              elements.forEach(function(element) {
+                element.style.display = ''; 
+                element.style.visibility = '';
+                element.style.opacity = '';
+                element.style.transition = '';
+              });
+            }
+          });
+
+          const PlayerState = videoJSPlayer.getIVSEvents().PlayerState;
+          document.getElementsByClassName("vjs-loading-spinner")[0].style.display='block'
+
+          videoContainerEl.classList.add("vjs-has-started");
+         
+          ivsPlayer.addEventListener(PlayerState.READY, () => {
+            // videoContainerEl.classList.remove("vjs-has-started");
+            videoContainerEl.classList.remove("vjs-seeking");
+            videoContainerEl.classList.remove("vjs-waiting");
+            videoContainerEl.classList.add("vjs-big-play-centered");
+            
+            document.getElementsByClassName("vjs-loading-spinner")[0].style.display='none'
+      
+    
+          });
+
+          ivsPlayer.addEventListener(PlayerState.PLAYING, () => {
+            console.log("Player State - PLAYING");
+            const currentQuality = ivsPlayer.getQuality();
+            // console.log("Current quality:", currentQuality.name);
+
+            setTimeout(() => {
+              console.log(`This stream is ${ivsPlayer.isLiveLowLatency() ? "" : "not "}playing in ultra-low latency mode`);
+              console.log(`Stream Latency: ${ivsPlayer.getLiveLatency()}s`);
+            }, 5000);
+          });
+
+          const PlayerEventType = videoJSPlayer.getIVSEvents().PlayerEventType;
+          ivsPlayer.addEventListener(PlayerEventType.ERROR, (type, source) => {
+            console.warn("Player Event - ERROR: ", type, source);
+          });
+
+          ivsPlayer.addEventListener(PlayerEventType.TEXT_METADATA_CUE, (cue) => {
+            const metadataText = cue.text;
+            const position = ivsPlayer.getPosition().toFixed(2);
+            console.log(`Player Event - TEXT_METADATA_CUE: "${metadataText}". Observed ${position}s after playback started.`);
+          });
+
+
+          videoJSPlayer.enableIVSQualityPlugin();
+          videoJSPlayer.volume(3.0);
+          videoJSPlayer.src(playbackUrl); // Set the playback URL
+        };
+
+        videoJSPlayer.ready(readyCallback);
+      }
+
+      // Fullscreen button handling
+      const content = document.querySelector('.player-wrapper');
+      const fullscreenButton = document.getElementById('fullscreen-button');
+      const exitFullscreenButton = document.getElementById('exit-fullscreen-button');
+
+      fullscreenButton.addEventListener('click', () => {
+        document.getElementsByClassName('player-wrapper')[0].style.width = "82%";
+        if (document.fullscreenElement) {
+          window.fullscreen.postMessage('exitFullscreen');
+          document.exitFullscreen();
+        } else {
+          content.requestFullscreen().catch((err) => {
+            window.fullscreen.postMessage('requestFullscreen');
+            fullscreenButton.style.display = 'none';
+            exitFullscreenButton.style.display = 'block';
+            console.error('Error attempting to enable fullscreen:', err);
+          });
+        }
+        toggleFullscreenButtons();
+      });
+
+      exitFullscreenButton.addEventListener('click', () => {
+        document.getElementsByClassName('player-wrapper')[0].style.width = "100%";
+        window.fullscreen.postMessage('exitFullscreen');
+        document.exitFullscreen();
+        toggleFullscreenButtons();
+      });
+
+      document.addEventListener('fullscreenchange', () => {
+        toggleFullscreenButtons();
+      });
+
+      function toggleFullscreenButtons() {
+        if (document.fullscreenElement) {
+          fullscreenButton.style.display = 'none';
+          exitFullscreenButton.style.display = 'block';
+        } else {
+          fullscreenButton.style.display = 'block';
+          exitFullscreenButton.style.display = 'none';
+        }
+      }
+
+      fullscreen.onMessageReceived = function (message) {
+        alert('Received message from Flutter: ' + message);
+        // Handle the message here
+      };
+    </script>
+  </body>
+</html>
