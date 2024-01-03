@@ -62,7 +62,7 @@
     <script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
   </head>
   <body>
-    
+
 
     <div class="player-wrapper">
       <button id="fullscreen-button">
@@ -149,7 +149,7 @@
           const ivsPlayer = videoJSPlayer.getIVSPlayer();
 
           const videoContainerEl = document.querySelector("#amazon-ivs-videojs");
-          
+
 
           // videoContainerEl.addEventListener("click", () => {
           //   if (videoJSPlayer.paused()) {
@@ -181,7 +181,7 @@
               var elements = document.querySelectorAll('.vjs-control-bar');
              // Revert back to default
               elements.forEach(function(element) {
-                element.style.display = ''; 
+                element.style.display = '';
                 element.style.visibility = '';
                 element.style.opacity = '';
                 element.style.transition = '';
@@ -193,16 +193,16 @@
           document.getElementsByClassName("vjs-loading-spinner")[0].style.display='block'
 
           videoContainerEl.classList.add("vjs-has-started");
-         
+
           ivsPlayer.addEventListener(PlayerState.READY, () => {
             // videoContainerEl.classList.remove("vjs-has-started");
             videoContainerEl.classList.remove("vjs-seeking");
             videoContainerEl.classList.remove("vjs-waiting");
             videoContainerEl.classList.add("vjs-big-play-centered");
-            
+
             document.getElementsByClassName("vjs-loading-spinner")[0].style.display='none'
-      
-    
+
+
           });
 
           ivsPlayer.addEventListener(PlayerState.PLAYING, () => {
@@ -278,10 +278,10 @@
         }
       }
 
-      fullscreen.onMessageReceived = function (message) {
-        alert('Received message from Flutter: ' + message);
-        // Handle the message here
-      };
+      // fullscreen.onMessageReceived = function (message) {
+      //   alert('Received message from Flutter: ' + message);
+      //   // Handle the message here
+      // };
     </script>
   </body>
 </html>
