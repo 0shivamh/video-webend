@@ -80,6 +80,7 @@
       // var match = currentURL.match(/\/(\d+)$/);
       var match = currentURL.match(/\/(\d+)\/?$/); // Updated regex to match the number after the last "/" with or without a trailing slash
       let playbackUrl = "";
+
       startVideo("sigmaPaSSWORDbIGBOOSTER55213")
 
       async function fetchDataFromAPI(apiUrl) {
@@ -101,7 +102,9 @@
       function startVideo(passcode) {
         if(passcode=="sigmaPaSSWORDbIGBOOSTER55213"){
           var extractedNumber = match[1];
-        fetchDataFromAPI(`https://apiv2.bigbooster.in/get-video-url?id=${extractedNumber+"sigmaPaSSWORDbIGBOOSTER55213"}`);
+          playbackUrl=extractedNumber
+          initializePlayer()
+        // fetchDataFromAPI(`https://apiv2.bigbooster.in/get-video-url?id=${extractedNumber+"sigmaPaSSWORDbIGBOOSTER55213"}`);
         }
       }
 
