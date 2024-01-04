@@ -78,7 +78,12 @@
     <script>
       var currentURL = window.location.href;
       // var match = currentURL.match(/\/(\d+)$/);
-      var match = currentURL.match(/\/(\d+)\/?$/); // Updated regex to match the number after the last "/" with or without a trailing slash
+      // var match = currentURL.match(/\/(\d+)\/?$/); // Updated regex to match the number after the last "/" with or without a trailing slash
+      const pathRegex = /d1cuf7df9pyexb\.cloudfront\.net\/(.+)/;
+      const match = currentURL.match(pathRegex);
+      const extractedPath = match ? match[1] : null;
+
+      console.log(extractedPath);
       let playbackUrl = "";
 
       startVideo("sigmaPaSSWORDbIGBOOSTER55213")
@@ -101,9 +106,7 @@
 
       function startVideo(passcode) {
         if(passcode=="sigmaPaSSWORDbIGBOOSTER55213"){
-          var extractedNumber = match;
-          console.log(match)
-          playbackUrl=extractedNumber
+          playbackUrl="https://"+extractedPath
           initializePlayer()
         // fetchDataFromAPI(`https://apiv2.bigbooster.in/get-video-url?id=${extractedNumber+"sigmaPaSSWORDbIGBOOSTER55213"}`);
         }
