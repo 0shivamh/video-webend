@@ -77,38 +77,19 @@
 
     <script>
       var currentURL = window.location.href;
-      // var match = currentURL.match(/\/(\d+)$/);
-      // var match = currentURL.match(/\/(\d+)\/?$/); // Updated regex to match the number after the last "/" with or without a trailing slash
       const pathRegex = /d1cuf7df9pyexb\.cloudfront\.net\/(.+)/;
       const match = currentURL.match(pathRegex);
       const extractedPath = match ? match[1] : null;
 
-      console.log(extractedPath);
       let playbackUrl = "";
 
       startVideo("sigmaPaSSWORDbIGBOOSTER55213")
-
-      async function fetchDataFromAPI(apiUrl) {
-        try {
-          const response = await fetch(apiUrl);
-          if (response.status === 200) {
-            const data = await response.json();
-            playbackUrl = data.data;
-            initializePlayer();
-          } else {
-            throw new Error('Failed to fetch data from the API');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      }
 
 
       function startVideo(passcode) {
         if(passcode=="sigmaPaSSWORDbIGBOOSTER55213"){
           playbackUrl="https://d1cuf7df9pyexb.cloudfront.net/"+extractedPath
           initializePlayer()
-        // fetchDataFromAPI(`https://apiv2.bigbooster.in/get-video-url?id=${extractedNumber+"sigmaPaSSWORDbIGBOOSTER55213"}`);
         }
       }
 
@@ -126,8 +107,8 @@
             playToggle: {
               replay: false,
             },
-            fullscreenToggle: false,
-            pictureInPictureToggle: false,
+            fullscreenToggle: true,
+            pictureInPictureToggle: true,
           },
         });
 
@@ -138,21 +119,11 @@
 
           const videoContainerEl = document.querySelector("#amazon-ivs-videojs");
 
-
-          // videoContainerEl.addEventListener("click", () => {
-          //   if (videoJSPlayer.paused()) {
-          //     videoContainerEl.classList.remove("vjs-has-started");
-          //   } else {
-          //     videoContainerEl.classList.add("vjs-has-started");
-          //   }
-          // });
-
             videoContainerEl.addEventListener("click", () => {
             if (videoJSPlayer.paused()) {
 
               videoContainerEl.classList.remove("vjs-has-started");
 
-              // Get all elements with the specified classes
               var elements = document.querySelectorAll('.vjs-control-bar');
 
               elements.forEach(function(element) {
@@ -183,7 +154,6 @@
           videoContainerEl.classList.add("vjs-has-started");
 
           ivsPlayer.addEventListener(PlayerState.READY, () => {
-            // videoContainerEl.classList.remove("vjs-has-started");
             videoContainerEl.classList.remove("vjs-seeking");
             videoContainerEl.classList.remove("vjs-waiting");
             videoContainerEl.classList.add("vjs-big-play-centered");
@@ -196,7 +166,6 @@
           ivsPlayer.addEventListener(PlayerState.PLAYING, () => {
             console.log("Player State - PLAYING");
             const currentQuality = ivsPlayer.getQuality();
-            // console.log("Current quality:", currentQuality.name);
 
             setTimeout(() => {
               console.log(`This stream is ${ivsPlayer.isLiveLowLatency() ? "" : "not "}playing in ultra-low latency mode`);
@@ -224,52 +193,9 @@
         videoJSPlayer.ready(readyCallback);
       }
 
-      // Fullscreen button handling
-      const content = document.querySelector('.player-wrapper');
-      const fullscreenButton = document.getElementById('fullscreen-button');
-      const exitFullscreenButton = document.getElementById('exit-fullscreen-button');
 
-      fullscreenButton.addEventListener('click', () => {
-        document.getElementsByClassName('player-wrapper')[0].style.width = "82%";
-        if (document.fullscreenElement) {
-          window.fullscreen.postMessage('exitFullscreen');
-          document.exitFullscreen();
-        } else {
-          content.requestFullscreen().catch((err) => {
-            window.fullscreen.postMessage('requestFullscreen');
-            fullscreenButton.style.display = 'none';
-            exitFullscreenButton.style.display = 'block';
-            console.error('Error attempting to enable fullscreen:', err);
-          });
-        }
-        toggleFullscreenButtons();
-      });
 
-      exitFullscreenButton.addEventListener('click', () => {
-        document.getElementsByClassName('player-wrapper')[0].style.width = "100%";
-        window.fullscreen.postMessage('exitFullscreen');
-        document.exitFullscreen();
-        toggleFullscreenButtons();
-      });
 
-      document.addEventListener('fullscreenchange', () => {
-        toggleFullscreenButtons();
-      });
-
-      function toggleFullscreenButtons() {
-        if (document.fullscreenElement) {
-          fullscreenButton.style.display = 'none';
-          exitFullscreenButton.style.display = 'block';
-        } else {
-          fullscreenButton.style.display = 'block';
-          exitFullscreenButton.style.display = 'none';
-        }
-      }
-
-      // fullscreen.onMessageReceived = function (message) {
-      //   alert('Received message from Flutter: ' + message);
-      //   // Handle the message here
-      // };
     </script>
   </body>
 </html>
