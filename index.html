@@ -5,35 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>Live Stream</title>
-
-  <style>
-    html,body{
-      width:100%;
-      height:100%;
-      margin:0;
-      padding:0;
-      overflow:hidden;
-    }
-    body{
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
-      background:transparent;
-      display:grid;
-      place-items:center;
-    }
-    .player-wrapper{
-      width:100%;
-      max-width:1080px;
-      position:relative;
-      background:black;
-    }
-  </style>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video-js.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video.min.js"></script>
   <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
   <script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+
+  <style>
+    html,body{margin:0;padding:0;width:100%;height:100%;background:#000}
+    .player-wrapper{max-width:1080px;margin:auto}
+  </style>
 </head>
 
 <body>
@@ -49,42 +31,45 @@
 
 <script>
 (function(){
-  const _0x5f2d=['href','location','match','replace','startsWith','https://test-video-stream.netlify.app/','videojs','amazon-ivs-videojs','AmazonIVS','registerIVSTech','registerIVSQualityPlugin','enableIVSQualityPlugin','volume','src','ready'];
-  const _0x1a3c=function(_0x4c8f){return _0x5f2d[_0x4c8f];};
+  const _0xA=[
+    'href','location','match','replace','startsWith',
+    'https://test-video-stream.netlify.app/',
+    'amazon-ivs-videojs','AmazonIVS','videojs'
+  ];
+  const _0xB=i=>_0xA[i];
 
-  let _0xurl=window[_0x1a3c(1)][_0x1a3c(0)];
-  let _0xrx=new RegExp(_0x1a3c(5)+'(.+)');
-  let _0xm=_0xurl[_0x1a3c(2)](_0xrx);
+  const _u=window[_0xB(1)][_0xB(0)];
+  const _r=new RegExp(_0xB(5)+'(.+)');
+  const _m=_u[_0xB(2)](_r);
 
-  let _0xplayback='';
+  let _p='';
 
-  if(_0xm&&_0xm[1]){
-    let _0xp=_0xm[1][_0x1a3c(3)](/^\/|\/$/g,'');
-    _0xplayback=_0xp[_0x1a3c(4)]('http')?_0xp:'https://'+_0xp;
+  if(_m&&_m[1]){
+    let _x=_m[1][_0xB(3)](/^\/|\/$/g,'');
+    _p=_x[_0xB(4)]('http')?_x:'https://'+_x;
   }
 
-  function _0xinit(){
-    registerIVSTech(window[_0x1a3c(6)]);
-    registerIVSQualityPlugin(window[_0x1a3c(6)]);
+  if(!_p) return;
 
-    const _0xplayer=videojs(_0x1a3c(7),{
-      techOrder:[_0x1a3c(8)],
-      controlBar:{
-        progressControl:true,
-        fullscreenToggle:true,
-        pictureInPictureToggle:true
-      },
-      playbackRates:[0.5,1,1.5,2]
-    });
+  registerIVSTech(window[_0xB(8)]);
+  registerIVSQualityPlugin(window[_0xB(8)]);
 
-    _0xplayer[_0x1a3c(15)](function(){
-      _0xplayer[_0x1a3c(11)]();
-      _0xplayer[_0x1a3c(12)](0.3);
-      _0xplayer[_0x1a3c(13)](_0xplayback);
-    });
-  }
+  const _player=videojs(_0xB(6),{
+    techOrder:[_0xB(7)],
+    controlBar:{
+      progressControl:true,
+      fullscreenToggle:true,
+      pictureInPictureToggle:true
+    },
+    playbackRates:[0.5,1,1.5,2]
+  });
 
-  _0xplayback && _0xinit();
+  _player.ready(function(){
+    _player.enableIVSQualityPlugin();   // ✅ FIXED
+    _player.volume(0.3);
+    _player.src(_p);
+  });
+
 })();
 </script>
 
