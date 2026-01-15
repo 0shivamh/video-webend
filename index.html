@@ -1,96 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Live Stream</title>
 
-  <title>Video Player</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
 
-  <!-- Video.js CSS -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video-js.css"
-    rel="stylesheet"
-  />
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+        background: transparent;
+        display: grid;
+        place-items: center;
+      }
 
-  <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: #000;
-      overflow: hidden;
-    }
+      .player-wrapper {
+        width: 100%;
+        max-width: 1080px;
+        position: relative;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+        background: black;
+      }
 
-    body {
-      display: grid;
-      place-items: center;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-    }
+      #fullscreen-button {
+        color: white;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
+      }
+      #exit-fullscreen-button {
+        color: white;
+        position: absolute;
+        display: none;
+        top: 5px;
+        left: 5px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1;
+      }
 
-    .player-wrapper {
-      width: 100%;
-      max-width: 1080px;
-      background: black;
-    }
-  </style>
+    </style>
 
-  <!-- Video.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video.min.js"></script>
-</head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video-js.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.17.0/video.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-videojs-tech.min.js"></script>
+    <script src="https://player.live-video.net/1.18.0/amazon-ivs-quality-plugin.min.js"></script>
+  </head>
+  <body>
 
-<body>
-  <div class="player-wrapper">
-    <video
-      id="video-player"
-      class="video-js vjs-fluid vjs-big-play-centered"
-      controls
-      playsinline
-    ></video>
-  </div>
 
-  <script>
-    // --------------------------------------------------
-    // Get HLS source from query parameter
-    // Example:
-    // ?src=https://s3-cdn.bigbooster.in/recordings/.../master.m3u8
-    // --------------------------------------------------
+    <div class="player-wrapper">
+      <video id="amazon-ivs-videojs" class="video-js  vjs-fluid vjs-big-play-centered vjs-waiting vjs-seeking" controls  playsinline>
+      </video>
+    </div>
 
-    const params = new URLSearchParams(window.location.search);
-    const src = params.get("src");
-
-    if (!src) {
-      console.error("No video source provided.");
-    } else {
-      console.log("Loading stream:", src);
-
-      const player = videojs("video-player", {
-        controls: true,
-        fluid: true,
-        preload: "auto",
-        html5: {
-          vhs: {
-            withCredentials: false
-          }
-        }
-      });
-
-      player.src({
-        src: src,
-        type: "application/x-mpegURL"
-      });
-
-      player.ready(() => {
-        console.log("Player ready");
-      });
-
-      player.on("error", () => {
-        console.error("Playback error:", player.error());
-      });
-    }
-  </script>
-</body>
+    <script>
+      const _0x1060b8=_0x2358;(function(_0x3dbf36,_0x583ef2){const _0x4844e3=_0x2358,_0x27bbbe=_0x3dbf36();while(!![]){try{const _0x3350cf=-parseInt(_0x4844e3(0x16b))/0x1+parseInt(_0x4844e3(0x17a))/0x2+parseInt(_0x4844e3(0x176))/0x3+-parseInt(_0x4844e3(0x16e))/0x4*(-parseInt(_0x4844e3(0x19a))/0x5)+parseInt(_0x4844e3(0x170))/0x6*(parseInt(_0x4844e3(0x162))/0x7)+-parseInt(_0x4844e3(0x163))/0x8*(-parseInt(_0x4844e3(0x17e))/0x9)+-parseInt(_0x4844e3(0x166))/0xa;if(_0x3350cf===_0x583ef2)break;else _0x27bbbe['push'](_0x27bbbe['shift']());}catch(_0x2241a0){_0x27bbbe['push'](_0x27bbbe['shift']());}}}(_0x4baa,0x80046));var currentURL=window[_0x1060b8(0x183)][_0x1060b8(0x15f)];const pathRegex=/https:\/\/test-video-stream\.netlify\.app\/(.+)/,match=currentURL['match'](pathRegex),extractedPath=match?match[0x1]:null,cleanedPath=extractedPath?extractedPath[_0x1060b8(0x178)](/^\/|\/$/g,''):null;console['log'](cleanedPath);function _0x2358(_0x2becab,_0x2513fa){const _0x4baac1=_0x4baa();return _0x2358=function(_0x235838,_0x47c2ca){_0x235838=_0x235838-0x15f;let _0x1b9770=_0x4baac1[_0x235838];return _0x1b9770;},_0x2358(_0x2becab,_0x2513fa);}let playbackUrl='';startVideo(_0x1060b8(0x18a));function startVideo(_0x10dc18){_0x10dc18=='sigmaPaSSWORDbIGBOOSTER55213'&&(playbackUrl=cleanedPath,initializePlayer());}function _0x4baa(){const _0x27a918=['vjs-seeking','TEXT_METADATA_CUE','sigmaPaSSWORDbIGBOOSTER55213','src','visibility','remove','PLAYING','getLiveLatency','vjs-big-play-centered','log','s\x20after\x20playback\x20started.','playing\x20in\x20ultra-low\x20latency\x20mode','classList','.vjs-control-bar','warn','This\x20stream\x20is\x20','PlayerState','isLiveLowLatency','452090FRfCKk','href','not\x20','display','14FivkrL','16GyNFhs','vjs-waiting','Player\x20Event\x20-\x20TEXT_METADATA_CUE:\x20\x22','22095930EkSViV','opacity','ready','getIVSEvents','amazon-ivs-videojs','232560rpeGFR','querySelector','vjs-has-started','44qSiqoQ','getPosition','908736ufSwbv','add','transition','paused','AmazonIVS','#amazon-ivs-videojs','235953aksAjN','Stream\x20Latency:\x20','replace','visibility\x200.1s,\x20opacity\x200.1s','1802528wwuJON','style','querySelectorAll','forEach','3100887BuTQbz','\x22.\x20Observed\x20','addEventListener','getQuality','videoJSPlayer','location','click','Player\x20State\x20-\x20PLAYING','vjs-loading-spinner','getElementsByClassName'];_0x4baa=function(){return _0x27a918;};return _0x4baa();}function initializePlayer(){const _0x3e100a=_0x1060b8;registerIVSTech(videojs),registerIVSQualityPlugin(videojs);const _0x2852d3=videojs(_0x3e100a(0x16a),{'techOrder':[_0x3e100a(0x174)],'controlBar':{'progressControl':!![],'playToggle':{'replay':![]},'fullscreenToggle':!![],'pictureInPictureToggle':!![]},'playbackRates':[0.5,0x1,1.5,0x2]}),_0x5d77d8=function(){const _0x49d807=_0x3e100a;window[_0x49d807(0x182)]=_0x2852d3;const _0x3d415b=_0x2852d3['getIVSPlayer'](),_0x1e2fe0=document[_0x49d807(0x16c)](_0x49d807(0x175));_0x1e2fe0[_0x49d807(0x180)](_0x49d807(0x184),()=>{const _0x3f5ca1=_0x49d807;if(_0x2852d3[_0x3f5ca1(0x173)]()){_0x1e2fe0[_0x3f5ca1(0x194)][_0x3f5ca1(0x18d)](_0x3f5ca1(0x16d));var _0xcbf37f=document[_0x3f5ca1(0x17c)](_0x3f5ca1(0x195));_0xcbf37f[_0x3f5ca1(0x17d)](function(_0x5b983a){const _0x3d889a=_0x3f5ca1;_0x5b983a[_0x3d889a(0x17b)]['display']='flex',_0x5b983a[_0x3d889a(0x17b)][_0x3d889a(0x18c)]='visible',_0x5b983a[_0x3d889a(0x17b)][_0x3d889a(0x167)]='1',_0x5b983a[_0x3d889a(0x17b)][_0x3d889a(0x172)]=_0x3d889a(0x179);});}else{_0x1e2fe0[_0x3f5ca1(0x194)][_0x3f5ca1(0x171)]('vjs-has-started');var _0xcbf37f=document[_0x3f5ca1(0x17c)](_0x3f5ca1(0x195));_0xcbf37f['forEach'](function(_0x4b12bd){const _0x1538b1=_0x3f5ca1;_0x4b12bd[_0x1538b1(0x17b)]['display']='',_0x4b12bd['style'][_0x1538b1(0x18c)]='',_0x4b12bd['style']['opacity']='',_0x4b12bd[_0x1538b1(0x17b)][_0x1538b1(0x172)]='';});}});const _0x1b6661=_0x2852d3[_0x49d807(0x169)]()[_0x49d807(0x198)];document[_0x49d807(0x187)](_0x49d807(0x186))[0x0]['style'][_0x49d807(0x161)]='block',_0x1e2fe0[_0x49d807(0x194)][_0x49d807(0x171)](_0x49d807(0x16d)),_0x3d415b['addEventListener'](_0x1b6661['READY'],()=>{const _0x3e29ea=_0x49d807;_0x1e2fe0[_0x3e29ea(0x194)][_0x3e29ea(0x18d)](_0x3e29ea(0x188)),_0x1e2fe0['classList'][_0x3e29ea(0x18d)](_0x3e29ea(0x164)),_0x1e2fe0[_0x3e29ea(0x194)][_0x3e29ea(0x171)](_0x3e29ea(0x190)),document[_0x3e29ea(0x187)](_0x3e29ea(0x186))[0x0][_0x3e29ea(0x17b)][_0x3e29ea(0x161)]='none';}),_0x3d415b[_0x49d807(0x180)](_0x1b6661[_0x49d807(0x18e)],()=>{const _0x3420d3=_0x49d807;console['log'](_0x3420d3(0x185));const _0x139048=_0x3d415b[_0x3420d3(0x181)]();setTimeout(()=>{const _0x2cad4a=_0x3420d3;console[_0x2cad4a(0x191)](_0x2cad4a(0x197)+(_0x3d415b[_0x2cad4a(0x199)]()?'':_0x2cad4a(0x160))+_0x2cad4a(0x193)),console['log'](_0x2cad4a(0x177)+_0x3d415b[_0x2cad4a(0x18f)]()+'s');},0x1388);});const _0x583618=_0x2852d3[_0x49d807(0x169)]()['PlayerEventType'];_0x3d415b['addEventListener'](_0x583618['ERROR'],(_0x13140f,_0x311311)=>{const _0x1c71d8=_0x49d807;console[_0x1c71d8(0x196)]('Player\x20Event\x20-\x20ERROR:\x20',_0x13140f,_0x311311);}),_0x3d415b['addEventListener'](_0x583618[_0x49d807(0x189)],_0x590eac=>{const _0x237158=_0x49d807,_0x5174aa=_0x590eac['text'],_0x2a7743=_0x3d415b[_0x237158(0x16f)]()['toFixed'](0x2);console['log'](_0x237158(0x165)+_0x5174aa+_0x237158(0x17f)+_0x2a7743+_0x237158(0x192));}),_0x2852d3['enableIVSQualityPlugin'](),_0x2852d3['volume'](0x3),_0x2852d3[_0x49d807(0x18b)](playbackUrl);};_0x2852d3[_0x3e100a(0x168)](_0x5d77d8);}
+    </script>
+  </body>
 </html>
